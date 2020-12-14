@@ -12,7 +12,7 @@ import { Link, withRouter } from "react-router-dom";
 class NavBar extends React.Component {
   render() {
     return (
-      <Navbar expand="lg">
+      <Navbar variant="dark" expand="lg">
         <Link to="/">
           <Navbar.Brand>React-Bootstrap</Navbar.Brand>
         </Link>
@@ -22,7 +22,9 @@ class NavBar extends React.Component {
             <Link to="/backoffice">
               <span className="nav-link">Home</span>
             </Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            <Link to="/cart">
+              <span className="nav-link">Cart</span>
+            </Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">

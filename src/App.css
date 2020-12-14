@@ -5,3 +5,7 @@ body {
 nav {
   background-color: #131921;
 }
+
+.nav-link {
+  color: white;
+}

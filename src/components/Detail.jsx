@@ -1,8 +1,23 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 class Detail extends React.Component {
   state = {
     products: {},
+  };
+
+  AddToCart = async (productID) => {
+    let response = await fetch(
+      "http://localhost:3077/carts/59dtt24kkiohwgwi/add-to-cart/" + productID,
+      {
+        method: "PUT",
+      }
+    );
+    if (response.ok) {
+      console.log(response);
+    } else {
+      console.log(response);
+    }
   };
 
   async componentDidMount() {
@@ -50,6 +65,9 @@ class Detail extends React.Component {
                 <a onclick="handleDelete()" className="btn btn-primary ml-5">
                   Delete product
                 </a>
+                <Button onClick={() => this.AddToCart(this.state.products._id)}>
+                  Add To Cart
+                </Button>
               </div>
             </div>
           </div>
