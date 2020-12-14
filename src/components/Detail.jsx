@@ -6,6 +6,27 @@ class Detail extends React.Component {
     products: {},
   };
 
+  handleAdd = (e, productID) => {
+    e.preventDefault();
+    this.AddToCart(productID);
+  };
+
+  handleDelete = (e, productID) => {
+    e.preventDefault();
+    this.DeleteFetch(productID);
+  };
+
+  DeleteFetch = async (productID) => {
+    let response = await fetch("http://localhost:3077/products/" + productID, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      console.log(response);
+      this.props.history.push("/");
+    } else {
+    }
+  };
+
   AddToCart = async (productID) => {
     let response = await fetch(
       "http://localhost:3077/carts/59dtt24kkiohwgwi/add-to-cart/" + productID,
@@ -62,10 +83,14 @@ class Detail extends React.Component {
                 <a onclick="handleEdit()" className="btn btn-primary mr-5">
                   Edit product
                 </a>
-                <a onclick="handleDelete()" className="btn btn-primary ml-5">
-                  Delete product
-                </a>
-                <Button onClick={() => this.AddToCart(this.state.products._id)}>
+                <Button
+                  onClick={(e) => this.handleDelete(e, this.state.products._id)}
+                >
+                  Delete Product
+                </Button>
+                <Button
+                  onClick={(e) => this.handleAdd(e, this.state.products._id)}
+                >
                   Add To Cart
                 </Button>
               </div>

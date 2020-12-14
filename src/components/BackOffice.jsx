@@ -34,7 +34,10 @@ class BackOffice extends React.Component {
           "Content-Type": "application/json",
         },
       });
-      if (response.ok) {
+      if (response.ok && this.state.image) {
+        let hope = await response.json();
+        this.postImage(hope._id);
+      } else if (response.ok) {
         alert("Product Added!");
         this.setState({
           product: {
@@ -49,6 +52,39 @@ class BackOffice extends React.Component {
         console.log("Somethings gone wrong!");
         let error = await response.json();
         console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  postImage = async (productID) => {
+    try {
+      let productImg = new FormData();
+      await productImg.append("productImg", this.state.image);
+      if (productImg) {
+        let response = await fetch(
+          "http://localhost:3077/files/" + productID + "/upload",
+          {
+            method: "POST",
+            body: productImg,
+          }
+        );
+        if (response.ok) {
+          alert("Post sent with image !");
+          this.setState({
+            image: {},
+          });
+          this.setState({
+            product: {
+              name: "",
+              description: "",
+              brand: "",
+              price: 0,
+              category: "",
+            },
+          });
+        }
       }
     } catch (error) {
       console.log(error);
@@ -118,7 +154,12 @@ class BackOffice extends React.Component {
               </Form.Group>
               <Form.Group>
                 <Form.Label htmlFor="image">Image</Form.Label>
-                <Form.Control type="file" id="image" accept="image/*" />
+                <Form.Control
+                  type="file"
+                  id="image"
+                  onChange={(e) => this.setState({ image: e.target.files[0] })}
+                  accept="image/*"
+                />
               </Form.Group>
               <Button variant="warning" type="submit">
                 SUBMIT PRODUCT

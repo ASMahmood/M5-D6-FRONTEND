@@ -20,7 +20,7 @@ class NavBar extends React.Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Link to="/backoffice">
-              <span className="nav-link">Home</span>
+              <span className="nav-link">Back Office</span>
             </Link>
             <Link to="/cart">
               <span className="nav-link">Cart</span>
